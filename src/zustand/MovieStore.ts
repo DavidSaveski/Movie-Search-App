@@ -25,7 +25,7 @@ export const useFilmStore = create<FilmStore>()(
         })),
     }),
     {
-      name: "film-storage", // localStorage key name
+      name: "film-storage",
     }
   )
 );

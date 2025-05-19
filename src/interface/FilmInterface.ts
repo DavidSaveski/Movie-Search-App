@@ -1,4 +1,18 @@
-export type FilmsType = {
+export type FilmType = {
+  Title: string;
+  Year: string;
+  imdbID: string;
+  Type: string;
+  Poster: string;
+};
+
+export type FilmsResponseType = {
+  Search: FilmType[];
+  totalResults: string;
+  Response: string;
+  Error: string;
+};
+export type FilmDetailsPlotFull = {
   Title: string;
   Year: string;
   Rated: string;
@@ -26,7 +40,14 @@ export type FilmsType = {
   Response: string;
 };
 
-export interface Rating {
+export type Rating = {
   Source: string;
   Value: string;
-}
+};
+
+export const OMDBResponse = {
+  True: "True",
+  False: "False",
+} as const;
+
+export type OMDBResponse = keyof typeof OMDBResponse;

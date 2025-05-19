@@ -1,6 +1,10 @@
 import "../styles/NavStyle.css";
 
-export default function Navigation() {
+type Props = {
+  onHandleQueryChange: (e: string) => void;
+};
+
+export default function Navigation({ onHandleQueryChange }: Props) {
   return (
     <nav>
       <img src="/public/Images/logo.png" alt="Logo" />
@@ -11,7 +15,11 @@ export default function Navigation() {
       </ul>
       <div>
         <label htmlFor="search">Search</label>
-        <input id="search" type="text" />
+        <input
+          id="search"
+          type="text"
+          onChange={(e) => onHandleQueryChange(e.target.value)}
+        />
       </div>
     </nav>
   );
