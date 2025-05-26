@@ -1,12 +1,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { FilmsType } from "../interface/FilmInterface";
+import type { FilmType } from "../interface/FilmInterface";
 
 type FilmStore = {
-  films: FilmsType[];
-  setFilms: (films: FilmsType[]) => void;
-  addMovie: (newFilm: FilmsType) => void;
-  deleteMovie: (imdbID: string) => void;
+  films: FilmType[];
+  setFilms: (films: FilmType[]) => void;
+  addMovie: (newFilm: FilmType) => void;
+  deleteMovie: (id: number) => void;
 };
 
 export const useFilmStore = create<FilmStore>()(
@@ -19,9 +19,9 @@ export const useFilmStore = create<FilmStore>()(
         set((state) => ({
           films: [...state.films, newFilm],
         })),
-      deleteMovie: (imdbID) =>
+      deleteMovie: (id) =>
         set((state) => ({
-          films: state.films.filter((film) => film.imdbID !== imdbID),
+          films: state.films.filter((film) => film.id !== id),
         })),
     }),
     {

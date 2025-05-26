@@ -17,7 +17,6 @@ export const searchAllMovies = async (searchTerm: string) => {
 
     let allMovies = [...firstData.Search];
 
-    // Fetch remaining pages
     for (let page = 2; page <= totalPages; page++) {
       const response = await fetch(
         `https://www.omdbapi.com/?s=${searchTerm}&apikey=${apiKey}&page=${page}`

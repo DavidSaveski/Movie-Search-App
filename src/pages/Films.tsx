@@ -6,7 +6,7 @@ export default function MovieDetails() {
 
   return (
     <>
-      <div>MovieDetails for id: {filmDetails.imdbID}</div>
+      <div>MovieDetails for id: {filmDetails.title}</div>
       <pre>{JSON.stringify(filmDetails, null, 4)}</pre>
     </>
   );
