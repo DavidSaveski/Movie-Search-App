@@ -80,43 +80,17 @@ export type TMDbErrorResponse = {
   status_code: number;
   status_message: string;
 };
-
-export const isTMDbError = (response: any): response is TMDbErrorResponse => {
+export const isTMDbError = (
+  response: unknown
+): response is TMDbErrorResponse => {
   return (
-    response.success === false &&
-    response.status_code &&
-    response.status_message
+    typeof response === "object" &&
+    response !== null &&
+    "success" in response &&
+    "status_code" in response &&
+    "status_message" in response &&
+    (response as TMDbErrorResponse).success === false &&
+    typeof (response as TMDbErrorResponse).status_code === "number" &&
+    typeof (response as TMDbErrorResponse).status_message === "string"
   );
 };
-
-export const getImageUrl = (
-  path: string | null,
-  size: "w200" | "w300" | "w500" | "w780" | "original" = "w500"
-): string => {
-  if (!path) return "/placeholder-movie.jpg";
-  return `https://image.tmdb.org/t/p/${size}${path}`;
-};
-
-export const GENRE_MAP = {
-  28: "Action",
-  12: "Adventure",
-  16: "Animation",
-  35: "Comedy",
-  80: "Crime",
-  99: "Documentary",
-  18: "Drama",
-  10751: "Family",
-  14: "Fantasy",
-  36: "History",
-  27: "Horror",
-  10402: "Music",
-  9648: "Mystery",
-  10749: "Romance",
-  878: "Science Fiction",
-  10770: "TV Movie",
-  53: "Thriller",
-  10752: "War",
-  37: "Western",
-} as const;
-
-export type GenreId = keyof typeof GENRE_MAP;

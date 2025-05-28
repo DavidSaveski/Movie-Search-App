@@ -1,0 +1,40 @@
+.film-grid {
+  overflow: hidden;
+  position: relative;
+  .film-card {
+    min-width: 200px;
+    margin: 0 10px;
+    padding: 20px;
+    border-radius: 8px;
+    img {
+      width: 100%;
+    }
+    h3 {
+      margin-bottom: 0;
+    }
+    p {
+      margin: 0;
+    }
+  }
+}
+.film-carousel {
+  display: flex;
+  width: fit-content;
+  animation: scroll-left 60s linear infinite;
+}
+.film-grid:hover .film-carousel {
+  animation-play-state: paused;
+}
+.film-card:hover {
+  transform: scale(1.05);
+  background: #bbb;
+  border-radius: 10px;
+}
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

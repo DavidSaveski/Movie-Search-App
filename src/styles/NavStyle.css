@@ -1,7 +1,6 @@
-nav {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+.navbar {
+  background-color: aquamarine;
+  padding: 1rem 0;
   ul {
     display: flex;
     padding: 0;
@@ -9,4 +8,14 @@ nav {
     list-style-type: none;
     gap: 25px;
   }
+  input {
+    border-radius: 15px;
+    border: 1px solid black;
+    padding: 5px 10px;
+  }
+}
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

@@ -1,66 +1,32 @@
-import { useLoaderData } from "react-router-dom";
-import Navigation from "../components/Navigation";
-import { useState } from "react";
-import { getBaseURL } from "../routes";
+import { useEffect } from "react";
+import { useFilmStore } from "../zustand/MovieStore";
 import FilmList from "../components/FilmList";
-import type { FilmsResponseType } from "../interface/FilmInterface";
-
-const API_KEY = import.meta.env.VITE_APIKEY;
+import TopRatedFilmsComp from "../components/TopRatedFilms";
+import Trailers from "../components/Trailers";
 
 export default function HomePage() {
-  const { results: initialFilms } = useLoaderData<FilmsResponseType>();
-  const [films, setFilms] = useState(initialFilms);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const {
+    popularFilms,
+    topRatedFilms,
+    loading,
+    error,
+    fetchPopularMovies,
+    fetchTopRatedFilms,
+  } = useFilmStore();
 
-  const handleQueryChange = async (text: string) => {
-    if (text.length < 3) {
-      setFilms(initialFilms);
-      setError("");
-      return;
-    }
+  useEffect(() => {
+    fetchPopularMovies();
+    fetchTopRatedFilms();
+  }, [fetchPopularMovies, fetchTopRatedFilms]);
 
-    try {
-      setLoading(true);
-      setError("");
-
-      const response = await fetch(
-        `${getBaseURL()}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
-          text
-        )}`
-      );
-
-      if (!response.ok) {
-        throw new Error("Search failed");
-      }
-
-      const data: FilmsResponseType = await response.json();
-      if (data.results && data.results.length > 0) {
-        setFilms(data.results);
-      } else {
-        setFilms([]);
-        setError("No movies found");
-      }
-      if (data.results && data.results.length > 0) {
-        setFilms(data.results);
-      } else {
-        setFilms([]);
-        setError("No movies found");
-      }
-    } catch (err) {
-      setError(err.message);
-      setFilms([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
-    <section>
-      <Navigation onHandleQueryChange={handleQueryChange} />
-      {loading && <p>Searching...</p>}
-      {error ? <p className="error">{error}</p> : <FilmList films={films} />}
-      {/* Slide show idea here */}
-    </section>
+    <>
+      <FilmList popularFilms={popularFilms} />
+      <Trailers />
+      <TopRatedFilmsComp topRatedFilms={topRatedFilms} />
+    </>
   );
 }
