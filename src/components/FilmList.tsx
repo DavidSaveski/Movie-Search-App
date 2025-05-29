@@ -30,57 +30,59 @@ export default function FilmList({ popularFilms }: Props) {
   }
 
   return (
-    <div className="film-grid wrap">
-      <h2>Most Popular Films</h2>
-      <div className="film-carousel ">
-        {[...sortedFilms].map((film, index) => (
-          <div key={`${film.id}-${index}`} className="film-card">
-            <Link to={`/details/${film.id}`}>
-              <img
-                src={getImageUrl(film.poster_path, "w200")}
-                alt={film.title}
-                className="film-poster"
-              />
-            </Link>
-            <div className="film-info">
-              <h3>{film.title}</h3>
-              <p style={{ color: "rgba(0,0,0,.6)" }}>
-                {formatReleaseDate(film.release_date)}
-              </p>
-              <p>
-                <i
-                  className="fa-solid fa-star"
-                  style={{ color: "#FFD43B" }}
-                ></i>
-                {film.vote_average.toFixed(1)}/10
-              </p>
+    <div className="" style={{ backgroundColor: "lightcoral" }}>
+      <div className="film-grid wrap">
+        <h2>Most Popular Films</h2>
+        <div className="film-carousel ">
+          {[...sortedFilms].map((film, index) => (
+            <div key={`${film.id}-${index}`} className="film-card">
+              <Link to={`/details/${film.id}`}>
+                <img
+                  src={getImageUrl(film.poster_path, "w200")}
+                  alt={film.title}
+                  className="film-poster"
+                />
+              </Link>
+              <div className="film-info">
+                <h3>{film.title}</h3>
+                <p style={{ color: "rgba(0,0,0,.6)" }}>
+                  {formatReleaseDate(film.release_date)}
+                </p>
+                <p>
+                  <i
+                    className="fa-solid fa-star"
+                    style={{ color: "#FFD43B" }}
+                  ></i>
+                  {film.vote_average.toFixed(1)}/10
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
-        {[...sortedFilms].map((film, index) => (
-          <div key={`${film.id}-${index}`} className="film-card">
-            <Link to={`/details/${film.id}`}>
-              <img
-                src={getImageUrl(film.poster_path, "w200")}
-                alt={film.title}
-                className="film-poster"
-              />
-            </Link>
-            <div className="film-info">
-              <h3>{film.title}</h3>
-              <p style={{ color: "rgba(0,0,0,.6)" }}>
-                {formatReleaseDate(film.release_date)}
-              </p>
-              <p>
-                <i
-                  className="fa-solid fa-star"
-                  style={{ color: "#FFD43B" }}
-                ></i>
-                {film.vote_average.toFixed(1)}/10
-              </p>
+          ))}
+          {[...sortedFilms].map((film, index) => (
+            <div key={`${film.id}-${index}`} className="film-card">
+              <Link to={`/details/${film.id}`}>
+                <img
+                  src={getImageUrl(film.poster_path, "w200")}
+                  alt={film.title}
+                  className="film-poster"
+                />
+              </Link>
+              <div className="film-info">
+                <h3>{film.title}</h3>
+                <p style={{ color: "rgba(0,0,0,.6)" }}>
+                  {formatReleaseDate(film.release_date)}
+                </p>
+                <p>
+                  <i
+                    className="fa-solid fa-star"
+                    style={{ color: "#FFD43B" }}
+                  ></i>
+                  {film.vote_average.toFixed(1)}/10
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
