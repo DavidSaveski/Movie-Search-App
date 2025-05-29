@@ -43,14 +43,14 @@
   transition: "opacity 1.5s ease-in-out";
 }
 .content-layer {
-  position: "relative";
+  position: relative;
   z-index: 3;
-  background-color: "rgba(255, 255, 255, 0.95)";
-  border-radius: "12px";
-  padding: "24px";
-  backdrop-filter: "blur(8px)";
-  box-shadow: "0 8px 32px rgba(0, 0, 0, 0.1)";
-  transition: "all 0.3s ease";
+  background-color: black;
+  border-radius: 12px;
+  padding: 24px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 .film-card:hover {
   transform: scale(1.05);

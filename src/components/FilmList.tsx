@@ -3,14 +3,22 @@ import "../styles/FilmCardStyle.css";
 import { useMemo } from "react";
 import { type FilmType } from "../interface/FilmInterface";
 import { getImageUrl } from "../utils/imageUrlUtils";
+import { getBackgroundStyle } from "../utils/getBackgroundStyle";
+import { useAutoCarousel } from "../hooks/SmoothBgTransition";
 
 type Props = {
   popularFilms: FilmType[];
 };
+
 export default function FilmList({ popularFilms }: Props) {
   const sortedFilms = useMemo(() => {
     return [...popularFilms].sort((a, b) => b.vote_average - a.vote_average);
   }, [popularFilms]);
+  const {
+    currentItem: currentFilm,
+    nextItem: nextFilm,
+    isTransitioning,
+  } = useAutoCarousel(sortedFilms, 4000, 1000);
 
   const formatReleaseDate = (dateString: string): string => {
     if (!dateString) return "Unknown";
@@ -30,8 +38,16 @@ export default function FilmList({ popularFilms }: Props) {
   }
 
   return (
-    <div className="" style={{ backgroundColor: "lightcoral" }}>
-      <div className="film-grid wrap">
+    <div style={{ position: "relative" }}>
+      <div
+        className="current-background"
+        style={getBackgroundStyle(currentFilm, false, isTransitioning)}
+      />
+      <div
+        className="next-background"
+        style={getBackgroundStyle(nextFilm, true, isTransitioning)}
+      />
+      <div className="film-grid wrap content-layer">
         <h2>Most Popular Films</h2>
         <div className="film-carousel ">
           {[...sortedFilms].map((film, index) => (
@@ -44,7 +60,7 @@ export default function FilmList({ popularFilms }: Props) {
                 />
               </Link>
               <div className="film-info">
-                <h3>{film.title}</h3>
+                <h3 style={{ color: "white" }}>{film.title}</h3>
                 <p style={{ color: "rgba(0,0,0,.6)" }}>
                   {formatReleaseDate(film.release_date)}
                 </p>
@@ -68,7 +84,7 @@ export default function FilmList({ popularFilms }: Props) {
                 />
               </Link>
               <div className="film-info">
-                <h3>{film.title}</h3>
+                <h3 style={{ color: "white" }}>{film.title}</h3>
                 <p style={{ color: "rgba(0,0,0,.6)" }}>
                   {formatReleaseDate(film.release_date)}
                 </p>
