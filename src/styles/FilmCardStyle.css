@@ -64,14 +64,13 @@
   position: relative;
   overflow: hidden;
 
-  /* Fade overlays that match carousel height exactly */
   &::before,
   &::after {
     content: "";
     position: absolute;
     top: 0;
-    bottom: 0; /* This will match the carousel height exactly */
-    width: 150px;
+    bottom: 0;
+    width: 70px;
     z-index: 4;
     pointer-events: none;
   }
