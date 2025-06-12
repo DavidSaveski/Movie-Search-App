@@ -3,15 +3,15 @@ import { getImageUrl } from "./imageUrlUtils";
 
 export function getBackgroundStyle(
   film: FilmType | undefined,
-  isNext: boolean,
-  isTransitioning: boolean
+  isNext?: boolean,
+  isTransitioning?: boolean
 ): React.CSSProperties {
   if (!film) return { backgroundColor: "lightcoral" };
 
   const imagePath = film.backdrop_path;
   if (imagePath) {
     return {
-      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url(${getImageUrl(
+      backgroundImage: `linear-gradient(rgba(0, 50, 100, 0.6), rgba(0, 30, 80, 0.6)), url(${getImageUrl(
         imagePath,
         "w1280"
       )})`,

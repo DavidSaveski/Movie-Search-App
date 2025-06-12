@@ -1,8 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import HomePage from "./pages/HomePage";
-import Films from "./pages/Films";
 import ErrorPage from "./pages/ErrorPage";
+import SearchFilm from "./pages/SearchFilm";
+import MovieDetails from "./pages/FilmDetail";
 
 export function getBaseURL() {
   return `https://api.themoviedb.org/3`;
@@ -15,15 +16,6 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        loader: async () => {
-          const response = await fetch(
-            `${getBaseURL()}/movie/popular?api_key=${API_KEY}`
-          );
-          if (!response.ok) {
-            throw new Error("Failed to fetch movies");
-          }
-          return response.json();
-        },
         element: <HomePage />,
       },
       {
@@ -37,7 +29,11 @@ export const router = createBrowserRouter([
           }
           return response.json();
         },
-        element: <Films />,
+        element: <MovieDetails />,
+      },
+      {
+        path: "/search",
+        element: <SearchFilm />,
       },
       {
         path: "*",

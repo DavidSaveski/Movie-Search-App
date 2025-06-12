@@ -1,6 +1,5 @@
 .film-grid {
   overflow: hidden;
-  position: relative;
   .film-card {
     min-width: 200px;
     margin: 0 10px;
@@ -45,15 +44,11 @@
 .content-layer {
   position: relative;
   z-index: 3;
-  background-color: black;
   border-radius: 12px;
-  padding: 24px;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  padding: 24px 0;
 }
 .film-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.01);
   background: #bbb;
   border-radius: 10px;
 }
@@ -63,5 +58,39 @@
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+
+  /* Fade overlays that match carousel height exactly */
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0; /* This will match the carousel height exactly */
+    width: 150px;
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  &::before {
+    left: 0;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0)
+    );
+  }
+
+  &::after {
+    right: 0;
+    background: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0)
+    );
   }
 }

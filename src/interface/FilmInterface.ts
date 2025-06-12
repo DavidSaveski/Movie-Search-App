@@ -21,27 +21,14 @@ export type FilmsResponseType = {
   total_pages: number;
   total_results: number;
 };
-export type FilmDetailsPlotFull = {
-  id: number;
-  title: string;
-  original_title: string;
-  overview: string;
-  poster_path: string | null;
-  backdrop_path: string | null;
-  release_date: string;
-  vote_average: number;
-  vote_count: number;
-  popularity: number;
-  adult: boolean;
-  original_language: string;
-  video: boolean;
-  runtime: number | null;
+export type FilmDetailsPlotFull = FilmType & {
+  runtime: number;
   budget: number;
   revenue: number;
   status: string;
-  tagline: string | null;
-  homepage: string | null;
-  imdb_id: string | null;
+  tagline: string;
+  homepage: string;
+  imdb_id: string;
   genres: Genre[];
   production_companies: ProductionCompany[];
   production_countries: ProductionCountry[];

@@ -2,6 +2,7 @@ import { type FilmType } from "../interface/FilmInterface";
 import { getImageUrl } from "../utils/imageUrlUtils";
 import { useAutoCarousel } from "../hooks/SmoothBgTransition";
 import { getBackgroundStyle } from "../utils/getBackgroundStyle";
+import { useMemo } from "react";
 
 type Props = {
   topRatedFilms: FilmType[];
@@ -13,6 +14,10 @@ export default function TopRatedFilmsComp({ topRatedFilms }: Props) {
     nextItem: nextFilm,
     isTransitioning,
   } = useAutoCarousel(topRatedFilms, 4000, 1000);
+
+  const sortedTopRatedFilms = useMemo(() => {
+    return [...topRatedFilms].sort((a, b) => b.popularity - a.popularity);
+  }, [topRatedFilms]);
 
   return (
     <div style={{ position: "relative" }}>
@@ -30,31 +35,39 @@ export default function TopRatedFilmsComp({ topRatedFilms }: Props) {
           ...getBackgroundStyle(nextFilm, false, isTransitioning),
         }}
       />
-      <div className=" film-grid wrap content-layer">
+      <div
+        className="film-grid wrap content-layer"
+        style={{
+          color: isTransitioning ? "black" : "white",
+          transition: "color 1s ease-in-out",
+        }}
+      >
         <h3>Top Rated Films</h3>
-        <div className="film-carousel">
-          {topRatedFilms.map((film) => (
-            <div key={`${film.id}`} className="film-card">
-              <img
-                src={getImageUrl(film.poster_path, "w200")}
-                alt={film.title}
-                className="film-poster"
-              />
-              <h3 style={{ color: "white" }}>{film.title}</h3>
-              <p>{film.popularity}</p>
-            </div>
-          ))}
-          {topRatedFilms.map((film) => (
-            <div key={`${film.id}`} className="film-card">
-              <img
-                src={getImageUrl(film.poster_path, "w200")}
-                alt={film.title}
-                className="film-poster"
-              />
-              <h3 style={{ color: "white" }}>{film.title}</h3>
-              <p>{film.popularity}</p>
-            </div>
-          ))}
+        <div className="carousel-container">
+          <div className="film-carousel">
+            {sortedTopRatedFilms.map((film) => (
+              <div key={`${film.id}`} className="film-card">
+                <img
+                  src={getImageUrl(film.poster_path, "w200")}
+                  alt={film.title}
+                  className="film-poster"
+                />
+                <h3>{film.title}</h3>
+                <p>{film.popularity}</p>
+              </div>
+            ))}
+            {sortedTopRatedFilms.map((film) => (
+              <div key={`${film.id}`} className="film-card">
+                <img
+                  src={getImageUrl(film.poster_path, "w200")}
+                  alt={film.title}
+                  className="film-poster"
+                />
+                <h3>{film.title}</h3>
+                <p>{film.popularity}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

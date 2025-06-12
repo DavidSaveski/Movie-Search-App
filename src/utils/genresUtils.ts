@@ -32,7 +32,6 @@ export const getGenreString = (genreIds: number[]): string => {
   return getGenreNames(genreIds).join(", ");
 };
 
-// Get first genre only
 export const getPrimaryGenre = (genreIds: number[]): string => {
   const genres = getGenreNames(genreIds);
   return genres.length > 0 ? genres[0] : "Unknown";

@@ -1,0 +1,16 @@
+.detail-container {
+  width: fit-content;
+  .film-detail {
+    display: flex;
+    align-items: center;
+    .cover-image {
+      flex-basis: 50%;
+      img {
+        width: 100%;
+      }
+    }
+    .description {
+      flex-basis: 50%;
+    }
+  }
+}
