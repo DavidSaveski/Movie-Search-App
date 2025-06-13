@@ -1,10 +1,12 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "../styles/NavStyle.css";
 
 export default function Navigation() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
+  const location = useLocation();
+  const currentPath = location.pathname;
 
   const handleQueryChange = (query: string) => {
     setSearchQuery(query);
@@ -14,6 +16,15 @@ export default function Navigation() {
     if (e.key === "Enter" && searchQuery.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
     }
+  };
+  const style = {
+    active: {
+      borderBottom: "2px solid #fb923c",
+      display: "list-item",
+      paddingLeft: "10px",
+      width: "100%",
+      marginLeft: "-5px",
+    },
   };
 
   return (
@@ -25,8 +36,12 @@ export default function Navigation() {
         <ul>
           <Link to={"/"} className="nav-buttons">
             Home
+            <span style={currentPath === "/" ? style.active : {}}></span>
           </Link>
-          <li>Post</li>
+          <Link to={"/search"} className="nav-buttons">
+            Search
+            <span style={currentPath === "/search" ? style.active : {}}></span>
+          </Link>
           <li>About</li>
         </ul>
         <div className="search-container">

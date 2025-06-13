@@ -3,6 +3,7 @@ import { getImageUrl } from "../utils/imageUrlUtils";
 import { useAutoCarousel } from "../hooks/SmoothBgTransition";
 import { getBackgroundStyle } from "../utils/getBackgroundStyle";
 import { useMemo } from "react";
+import { Link } from "react-router-dom";
 
 type Props = {
   topRatedFilms: FilmType[];
@@ -47,22 +48,26 @@ export default function TopRatedFilmsComp({ topRatedFilms }: Props) {
           <div className="film-carousel">
             {sortedTopRatedFilms.map((film) => (
               <div key={`${film.id}`} className="film-card">
-                <img
-                  src={getImageUrl(film.poster_path, "w200")}
-                  alt={film.title}
-                  className="film-poster"
-                />
+                <Link to={`/details/${film.id}`}>
+                  <img
+                    src={getImageUrl(film.poster_path, "w200")}
+                    alt={film.title}
+                    className="film-poster"
+                  />
+                </Link>
                 <h3>{film.title}</h3>
                 <p>{film.popularity}</p>
               </div>
             ))}
             {sortedTopRatedFilms.map((film) => (
               <div key={`${film.id}`} className="film-card">
-                <img
-                  src={getImageUrl(film.poster_path, "w200")}
-                  alt={film.title}
-                  className="film-poster"
-                />
+                <Link to={`/details/${film.id}`}>
+                  <img
+                    src={getImageUrl(film.poster_path, "w200")}
+                    alt={film.title}
+                    className="film-poster"
+                  />
+                </Link>
                 <h3>{film.title}</h3>
                 <p>{film.popularity}</p>
               </div>

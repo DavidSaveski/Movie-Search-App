@@ -1,0 +1,15 @@
+.filters-grid {
+  min-width: 260px;
+  width: 260px;
+  display: flex;
+  flex-wrap: wrap;
+  .panel {
+    display: block;
+    box-sizing: border-box;
+    min-width: 260px;
+    width: 260px;
+    border: 1px solid rgba(227, 227, 227, 1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+}

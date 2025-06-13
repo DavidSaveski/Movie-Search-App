@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useFilmStore } from "../zustand/MovieStore";
+import "../styles/SearchFilmStyle.css";
+import { getImageUrl } from "../utils/imageUrlUtils";
+import Filters from "../components/Filters";
 
 export default function SearchFilm() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -28,18 +31,25 @@ export default function SearchFilm() {
   };
 
   return (
-    <div className="search-page">
+    <div className="search-page wrap">
       <div className="search-header">
         <h1>Search Movies</h1>
-        <form onSubmit={handleNewSearch} className="search-form">
-          <input
-            type="text"
-            value={currentQuery}
-            onChange={handleInputChange}
-            placeholder="Search for movies..."
-            className="search-input"
-          />
-          <button type="submit" className="search-submit">
+        <form
+          onSubmit={handleNewSearch}
+          className="search-form"
+          style={{ position: "relative" }}
+        >
+          <span className="form-span">
+            <input
+              id="sarch"
+              type="text"
+              value={currentQuery}
+              onChange={handleInputChange}
+              placeholder="Search for movies..."
+              style={{ border: "none", marginLeft: "16px" }}
+            />
+          </span>
+          <button type="submit" className="form-search-button">
             Search
           </button>
         </form>
@@ -51,6 +61,7 @@ export default function SearchFilm() {
       </div>
 
       <div className="search-results">
+        <Filters className="filters-grid" />
         {loading && <p>Loading...</p>}
         {error && <p className="error">Error: {error}</p>}
 
@@ -59,24 +70,25 @@ export default function SearchFilm() {
         )}
 
         {!loading && !error && popularFilms.length > 0 && (
-          <div className="movies-grid">
-            {popularFilms.map((movie) => (
-              <div key={movie.id} className="movie-card">
+          <section className="movie-grid">
+            {popularFilms.map((film) => (
+              <div key={film.id} className="movie-card">
                 <img
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  alt={movie.title}
+                  src={getImageUrl(film.poster_path, "w200")}
+                  alt={film.title}
                   onError={(e) => {
                     e.currentTarget.src = "/placeholder-image.jpg";
                   }}
                 />
-                <div className="movie-info">
-                  <h3>{movie.title}</h3>
-                  <p>{movie.release_date?.split("-")[0]}</p>
-                  <p>Rating: {movie.vote_average}/10</p>
+
+                <div className="film-info">
+                  <h3>{film.title}</h3>
+                  <p>{film.release_date?.split("-")[0]}</p>
+                  <p>Rating: {film.vote_average}/10</p>
                 </div>
               </div>
             ))}
-          </div>
+          </section>
         )}
       </div>
     </div>
