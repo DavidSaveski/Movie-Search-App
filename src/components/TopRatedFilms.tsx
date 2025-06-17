@@ -46,32 +46,27 @@ export default function TopRatedFilmsComp({ topRatedFilms }: Props) {
         <h3>Top Rated Films</h3>
         <div className="carousel-container">
           <div className="film-carousel">
-            {sortedTopRatedFilms.map((film) => (
-              <div key={`${film.id}`} className="film-card">
-                <Link to={`/details/${film.id}`}>
-                  <img
-                    src={getImageUrl(film.poster_path, "w200")}
-                    alt={film.title}
-                    className="film-poster"
-                  />
-                </Link>
-                <h3>{film.title}</h3>
-                <p>{film.popularity}</p>
-              </div>
-            ))}
-            {sortedTopRatedFilms.map((film) => (
-              <div key={`${film.id}`} className="film-card">
-                <Link to={`/details/${film.id}`}>
-                  <img
-                    src={getImageUrl(film.poster_path, "w200")}
-                    alt={film.title}
-                    className="film-poster"
-                  />
-                </Link>
-                <h3>{film.title}</h3>
-                <p>{film.popularity}</p>
-              </div>
-            ))}
+            {[...sortedTopRatedFilms, ...sortedTopRatedFilms].map(
+              (film, index) => (
+                <div key={`${film.id}-${index}`} className="film-card">
+                  <Link to={`/details/${film.id}`}>
+                    <img
+                      src={getImageUrl(film.poster_path, "w200")}
+                      alt={film.title}
+                      className="film-poster"
+                    />
+                  </Link>
+                  <h3>{film.title}</h3>
+                  <p>
+                    <i
+                      className="fa-solid fa-fire-flame-curved burning-icon"
+                      style={{ color: "red", marginRight: "5px" }}
+                    ></i>
+                    {film.popularity.toFixed(2)}
+                  </p>
+                </div>
+              )
+            )}
           </div>
         </div>
       </div>

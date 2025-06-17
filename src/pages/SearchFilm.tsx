@@ -29,24 +29,22 @@ export default function SearchFilm() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentQuery(e.target.value);
   };
-
+  const applyFilterButton = () => {
+    console.log("clicked on the button");
+  };
   return (
     <div className="search-page wrap">
       <div className="search-header">
         <h1>Search Movies</h1>
-        <form
-          onSubmit={handleNewSearch}
-          className="search-form"
-          style={{ position: "relative" }}
-        >
+        <form onSubmit={handleNewSearch} className="search-form">
           <span className="form-span">
             <input
-              id="sarch"
+              id="search"
               type="text"
               value={currentQuery}
               onChange={handleInputChange}
               placeholder="Search for movies..."
-              style={{ border: "none", marginLeft: "16px" }}
+              style={{ border: "none", marginLeft: "16px", width: "95%" }}
             />
           </span>
           <button type="submit" className="form-search-button">
@@ -61,7 +59,7 @@ export default function SearchFilm() {
       </div>
 
       <div className="search-results">
-        <Filters className="filters-grid" />
+        <Filters onApplyClick={applyFilterButton} />
         {loading && <p>Loading...</p>}
         {error && <p className="error">Error: {error}</p>}
 
@@ -85,6 +83,7 @@ export default function SearchFilm() {
                   <h3>{film.title}</h3>
                   <p>{film.release_date?.split("-")[0]}</p>
                   <p>Rating: {film.vote_average}/10</p>
+                  {film.overview}
                 </div>
               </div>
             ))}

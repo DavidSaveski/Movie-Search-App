@@ -1,4 +1,4 @@
-export const GENRE_MAP = {
+export const GENRE_MAP: Record<number, string> = {
   28: "Action",
   12: "Adventure",
   16: "Animation",
@@ -21,18 +21,3 @@ export const GENRE_MAP = {
 };
 
 export type GenreId = keyof typeof GENRE_MAP;
-
-export const getGenreNames = (genreIds: number[]): string[] => {
-  return genreIds
-    .filter((id) => id in GENRE_MAP)
-    .map((id) => GENRE_MAP[id as GenreId]);
-};
-
-export const getGenreString = (genreIds: number[]): string => {
-  return getGenreNames(genreIds).join(", ");
-};
-
-export const getPrimaryGenre = (genreIds: number[]): string => {
-  const genres = getGenreNames(genreIds);
-  return genres.length > 0 ? genres[0] : "Unknown";
-};

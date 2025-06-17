@@ -61,23 +61,3 @@ export type Rating = {
   Source: string;
   Value: string;
 };
-
-export type TMDbErrorResponse = {
-  success: boolean;
-  status_code: number;
-  status_message: string;
-};
-export const isTMDbError = (
-  response: unknown
-): response is TMDbErrorResponse => {
-  return (
-    typeof response === "object" &&
-    response !== null &&
-    "success" in response &&
-    "status_code" in response &&
-    "status_message" in response &&
-    (response as TMDbErrorResponse).success === false &&
-    typeof (response as TMDbErrorResponse).status_code === "number" &&
-    typeof (response as TMDbErrorResponse).status_message === "string"
-  );
-};

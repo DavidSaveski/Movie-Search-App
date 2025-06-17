@@ -93,3 +93,14 @@
     );
   }
 }
+.burning-icon {
+  background: linear-gradient(45deg, #ffcc00, #ff6600, #ff0000);
+  background-size: 200% 200%;
+
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}

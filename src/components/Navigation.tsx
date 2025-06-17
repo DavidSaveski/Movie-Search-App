@@ -55,7 +55,12 @@ export default function Navigation() {
               onKeyDown={handleKeyDown}
               className="search-input"
             />
-            <i className="fa-solid fa-magnifying-glass search-icon"></i>
+            <button
+              className="search-icon"
+              style={{ border: "none", backgroundColor: "inherit" }}
+            >
+              <i className="fa-solid fa-magnifying-glass  "></i>
+            </button>
           </div>
         </div>
       </div>

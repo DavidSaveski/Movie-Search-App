@@ -1,5 +1,13 @@
+.search-header {
+  margin: 2rem 0;
+  h1 {
+    margin-top: 0;
+  }
+}
+
 .search-form {
   position: relative;
+  margin-bottom: 1rem;
   .form-search-button {
     position: absolute;
     right: 0px;
@@ -44,5 +52,6 @@
   img {
     border-top-left-radius: inherit;
     border-bottom-left-radius: inherit;
+    width: 100px;
   }
 }
