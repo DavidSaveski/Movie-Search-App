@@ -61,3 +61,7 @@ export type Rating = {
   Source: string;
   Value: string;
 };
+export type FilterData = {
+  genres: number[];
+  sortBy: string;
+};

@@ -5,7 +5,7 @@
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   font-family: system-ui, -apple-system, sans-serif;
-  max-width: 600px;
+  max-width: 300px;
   margin-right: 1rem;
   height: fit-content;
   width: 400px;
@@ -237,25 +237,4 @@
 
 .active-filters-list div:last-child {
   margin-bottom: 0;
-}
-
-/* Responsive Design */
-@media (max-width: 640px) {
-  .filters-container {
-    padding: 16px;
-    margin: 0 16px;
-  }
-
-  .genres-grid {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  }
-
-  .year-range-container {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .year-input {
-    width: 100%;
-  }
 }

@@ -1,6 +1,6 @@
 export const getImageUrl = (
   path: string | null,
-  size: "w200" | "w300" | "w500" | "w780" | "w1280" | "original" = "w500"
+  size: "w200" | "w300" | "w500" | "w780" | "original"
 ): string => {
   if (!path) return "/placeholder-movie.jpg";
   return `https://image.tmdb.org/t/p/${size}${path}`;

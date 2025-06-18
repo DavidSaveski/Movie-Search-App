@@ -2,8 +2,14 @@ import { useState } from "react";
 import { GENRE_MAP } from "../utils/genresUtils";
 import "../styles/FilterSection.css";
 
+// Define the FilterData type
+export type FilterData = {
+  genres: number[];
+  sortBy: string;
+};
+
 type Props = {
-  onApplyClick: () => void;
+  onApplyClick: (filterData: FilterData) => void;
 };
 
 export default function Filters({ onApplyClick }: Props) {
@@ -25,8 +31,16 @@ export default function Filters({ onApplyClick }: Props) {
 
   const genreEntries = Object.entries(GENRE_MAP);
 
+  const applyFiltersButton = () => {
+    const filterData: FilterData = {
+      genres: selectedGenres,
+      sortBy: sortBy,
+    };
+    onApplyClick(filterData); // Fixed: use onApplyClick instead of onApplyFilters
+  };
+
   return (
-    <div className="filters-container filters-grid">
+    <div className="filters-container">
       <div className="filters-header">
         <h2 className="filters-title">Filters</h2>
         <button onClick={clearFilters} className="clear-button">
@@ -69,11 +83,10 @@ export default function Filters({ onApplyClick }: Props) {
           <option value="release_date">Release Date</option>
           <option value="vote_average">Rating</option>
           <option value="title">Title</option>
-          <option value="revenue">Box Office</option>
         </select>
       </div>
 
-      <button className="apply-button" onClick={onApplyClick}>
+      <button className="apply-button" onClick={applyFiltersButton}>
         Apply Filters
       </button>
     </div>

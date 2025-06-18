@@ -13,7 +13,7 @@ export function getBackgroundStyle(
     return {
       backgroundImage: `linear-gradient(rgba(0, 50, 100, 0.6), rgba(0, 30, 80, 0.6)), url(${getImageUrl(
         imagePath,
-        "w1280"
+        "original"
       )})`,
       backgroundSize: "cover",
       backgroundPosition: "center",

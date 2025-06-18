@@ -5,6 +5,7 @@ import { type FilmType } from "../interface/FilmInterface";
 import { getImageUrl } from "../utils/imageUrlUtils";
 import { getBackgroundStyle } from "../utils/getBackgroundStyle";
 import { useAutoCarousel } from "../hooks/SmoothBgTransition";
+import { formatReleaseDate } from "../utils/formatReleaseDate";
 
 type Props = {
   popularFilms: FilmType[];
@@ -19,19 +20,6 @@ export default function FilmList({ popularFilms }: Props) {
     nextItem: nextFilm,
     isTransitioning,
   } = useAutoCarousel(sortedFilms, 4000, 1000);
-
-  const formatReleaseDate = (dateString: string): string => {
-    if (!dateString) return "Unknown";
-
-    const date = new Date(dateString);
-    if (isNaN(date.getTime())) return "Invalid Date";
-
-    return date.toLocaleDateString("en-US", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
-  };
 
   if (!popularFilms || popularFilms.length === 0) {
     return <p>No movies to display</p>;

@@ -7,17 +7,21 @@ import { getBackgroundStyle } from "../utils/getBackgroundStyle";
 export default function MovieDetails() {
   const filmDetails = useLoaderData<FilmDetailsPlotFull>();
   return (
-    <section className="" style={getBackgroundStyle(filmDetails)}>
+    <section style={getBackgroundStyle(filmDetails)}>
       <main className="detail-container wrap">
         <div className="film-detail">
           <div className="cover-image">
             <img
-              src={getImageUrl(filmDetails.poster_path, "w500")}
+              src={getImageUrl(filmDetails.poster_path, "original")}
               alt={filmDetails.title}
             />
           </div>
           <div className="description">
-            <h3 style={{ margin: "0" }}>{filmDetails.title}</h3>
+            <h3 style={{ margin: "0" }}>
+              {filmDetails.title}
+              <span>({filmDetails.release_date.split("-")[0]})</span>
+            </h3>
+            <p>{filmDetails.overview}</p>
           </div>
         </div>
       </main>

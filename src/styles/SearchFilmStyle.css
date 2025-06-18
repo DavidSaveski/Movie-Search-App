@@ -46,12 +46,20 @@
 }
 .movie-card {
   display: flex;
+  margin-bottom: 15px;
   border: 2px solid darkslategrey;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  img {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  .poster {
+    margin-right: 20px;
     border-top-left-radius: inherit;
     border-bottom-left-radius: inherit;
-    width: 100px;
+
+    img {
+      border-top-left-radius: inherit;
+      border-bottom-left-radius: inherit;
+      width: 120px;
+      height: 100%;
+    }
   }
 }
