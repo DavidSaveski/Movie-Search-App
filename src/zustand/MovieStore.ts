@@ -36,16 +36,22 @@ export const useFilmStore = create<FilmStore>()((set, get) => ({
     try {
       set({ loading: true, error: null });
 
-      const response = await fetch(
-        `${getBaseURL()}/movie/popular?api_key=${API_KEY}`
-      );
+      const allResults = [];
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch popular movies");
+      for (let page = 1; page <= 10; page++) {
+        const response = await fetch(
+          `${getBaseURL()}/movie/popular?api_key=${API_KEY}&page=${page}`
+        );
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch popular movies from page ${page}`);
+        }
+
+        const data: FilmsResponseType = await response.json();
+        allResults.push(...data.results);
       }
 
-      const data: FilmsResponseType = await response.json();
-      set({ popularFilms: data.results, loading: false });
+      set({ popularFilms: allResults, loading: false });
     } catch (error) {
       set({
         error: error instanceof Error ? error.message : "Unknown error",
@@ -118,16 +124,22 @@ export const useFilmStore = create<FilmStore>()((set, get) => ({
     try {
       set({ loading: true, error: null });
 
-      const response = await fetch(
-        `${getBaseURL()}/movie/top_rated?api_key=${API_KEY}`
-      );
+      const allResults = [];
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch top rated movies");
+      for (let page = 1; page <= 10; page++) {
+        const response = await fetch(
+          `${getBaseURL()}/movie/top_rated?api_key=${API_KEY}&page=${page}`
+        );
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch top rated movies from page ${page}`);
+        }
+
+        const data: FilmsResponseType = await response.json();
+        allResults.push(...data.results);
       }
 
-      const data: FilmsResponseType = await response.json();
-      set({ topRatedFilms: data.results, loading: false });
+      set({ topRatedFilms: allResults, loading: false });
     } catch (error) {
       set({
         error: error instanceof Error ? error.message : "Unknown error",

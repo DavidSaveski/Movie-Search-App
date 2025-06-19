@@ -20,8 +20,10 @@ export default function TopRatedFilmsComp({ topRatedFilms }: Props) {
     return [...topRatedFilms].sort((a, b) => b.popularity - a.popularity);
   }, [topRatedFilms]);
 
+  const firstPageTopRatedFilms = sortedTopRatedFilms.slice(0, 20);
+
   return (
-    <div style={{ position: "relative" }}>
+    <main className="main-div">
       <div
         className="current-background"
         style={{
@@ -46,7 +48,7 @@ export default function TopRatedFilmsComp({ topRatedFilms }: Props) {
         <h3>Top Rated Films</h3>
         <div className="carousel-container">
           <div className="film-carousel">
-            {[...sortedTopRatedFilms, ...sortedTopRatedFilms].map(
+            {[...firstPageTopRatedFilms, ...firstPageTopRatedFilms].map(
               (film, index) => (
                 <div key={`${film.id}-${index}`} className="film-card">
                   <Link to={`/details/${film.id}`}>
@@ -70,6 +72,6 @@ export default function TopRatedFilmsComp({ topRatedFilms }: Props) {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

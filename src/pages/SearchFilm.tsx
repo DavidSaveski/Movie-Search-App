@@ -7,6 +7,8 @@ import Filters from "../components/Filters";
 import type { FilmType, FilterData } from "../interface/FilmInterface";
 import { formatReleaseDate } from "../utils/formatReleaseDate";
 
+const MOVIES_PER_PAGE = 15;
+
 export default function SearchFilm() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { popularFilms, topRatedFilms, searchMovies, loading, error } =
@@ -16,6 +18,7 @@ export default function SearchFilm() {
     genres: [],
     sortBy: "popularity",
   });
+  const [displayCount, setDisplayCount] = useState(MOVIES_PER_PAGE);
 
   const queryFromUrl = searchParams.get("q") || "";
 
@@ -26,7 +29,8 @@ export default function SearchFilm() {
     } else {
       setCurrentQuery("");
     }
-  }, [queryFromUrl, searchMovies]);
+    setDisplayCount(MOVIES_PER_PAGE);
+  }, [queryFromUrl, searchMovies, activeFilters]);
 
   const handleNewSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,6 +50,10 @@ export default function SearchFilm() {
 
   const handleApplyFilters = (filterData: FilterData) => {
     setActiveFilters(filterData);
+  };
+
+  const handleShowMore = () => {
+    setDisplayCount((prev) => prev + MOVIES_PER_PAGE);
   };
 
   const filteredAndSortedMovies = useMemo(() => {
@@ -93,6 +101,9 @@ export default function SearchFilm() {
     return filtered;
   }, [popularFilms, topRatedFilms, activeFilters, queryFromUrl]);
 
+  const moviesToDisplay = filteredAndSortedMovies.slice(0, displayCount);
+  const hasMoreMovies = displayCount < filteredAndSortedMovies.length;
+
   return (
     <div className="search-page wrap">
       <div className="search-header">
@@ -105,7 +116,7 @@ export default function SearchFilm() {
               value={currentQuery}
               onChange={handleInputChange}
               placeholder="Search for movies..."
-              style={{ border: "none", marginLeft: "16px", width: "95%" }}
+              className="form-input"
             />
           </span>
           <button type="submit" className="form-search-button">
@@ -128,9 +139,9 @@ export default function SearchFilm() {
           <p>No movies found for "{queryFromUrl}"</p>
         )}
 
-        {!loading && !error && filteredAndSortedMovies.length > 0 && (
+        {!loading && !error && moviesToDisplay.length > 0 && (
           <section className="movie-grid">
-            {filteredAndSortedMovies.map((film) => (
+            {moviesToDisplay.map((film) => (
               <div key={film.id} className="movie-card">
                 <div className="poster">
                   <img
@@ -145,11 +156,28 @@ export default function SearchFilm() {
                   <h3 style={{ marginTop: "10px" }}>{film.title}</h3>
                   <p>{formatReleaseDate(film.release_date)}</p>
                   <p>Rating: {film.vote_average}/10</p>
-                  <p>{film.popularity}</p>
+                  <p>{film.popularity.toFixed(2)}</p>
                   <p>{film.overview.slice(0, 300)}...</p>
                 </div>
               </div>
             ))}
+            {!loading && !error && hasMoreMovies && (
+              <div className="show-more-container">
+                <button
+                  onClick={handleShowMore}
+                  className="show-more-button"
+                  style={{}}
+                  onMouseOver={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#0056b3")
+                  }
+                  onMouseOut={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#007bff")
+                  }
+                >
+                  Show More
+                </button>
+              </div>
+            )}
           </section>
         )}
 
