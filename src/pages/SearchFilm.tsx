@@ -141,8 +141,8 @@ export default function SearchFilm() {
 
         {!loading && !error && moviesToDisplay.length > 0 && (
           <section className="movie-grid">
-            {moviesToDisplay.map((film) => (
-              <div key={film.id} className="movie-card">
+            {moviesToDisplay.map((film, index) => (
+              <div key={`${film.id}-${index}`} className="movie-card">
                 <div className="poster">
                   <img
                     src={getImageUrl(film.poster_path, "original")}
