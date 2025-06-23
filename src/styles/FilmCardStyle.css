@@ -26,7 +26,7 @@
   width: fit-content;
   animation: scroll-left 100s linear infinite;
 }
-.film-grid:hover .film-carousel {
+.carousel-container:hover .film-carousel {
   animation-play-state: paused;
 }
 .current-background {

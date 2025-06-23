@@ -18,3 +18,8 @@
     }
   }
 }
+.facts {
+  span {
+    margin-left: 5px;
+  }
+}

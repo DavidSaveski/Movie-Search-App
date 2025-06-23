@@ -10,6 +10,26 @@ ul {
   margin: 0;
   padding: 0;
 }
+
+h3,
+h4,
+h5,
 p {
   margin: 0;
+}
+h2 {
+  margin-top: 0;
+}
+.links > ul > a {
+  padding-left: 1rem;
+}
+.footer {
+  background-color: aquamarine;
+  padding: 1rem 0;
+  margin-top: 1rem;
+  section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }

@@ -45,7 +45,7 @@ export default function TopRatedFilmsComp({ topRatedFilms }: Props) {
           transition: "color 1s ease-in-out",
         }}
       >
-        <h3>Top Rated Films</h3>
+        <h2>Top Rated Films</h2>
         <div className="carousel-container">
           <div className="film-carousel">
             {[...firstPageTopRatedFilms, ...firstPageTopRatedFilms].map(

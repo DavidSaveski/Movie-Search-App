@@ -5,27 +5,33 @@ import { type FilmType } from "../interface/FilmInterface";
 import { getImageUrl } from "../utils/imageUrlUtils";
 import { getBackgroundStyle } from "../utils/getBackgroundStyle";
 import { useAutoCarousel } from "../hooks/SmoothBgTransition";
-import { formatReleaseDate } from "../utils/formatReleaseDate";
+import { formatReleaseDate } from "../utils/formatDate";
 
 type Props = {
   popularFilms: FilmType[];
 };
 
 export default function FilmList({ popularFilms }: Props) {
-  const sortedFilms = useMemo(() => {
-    return [...popularFilms].sort((a, b) => b.vote_average - a.vote_average);
-  }, [popularFilms]);
   const {
     currentItem: currentFilm,
     nextItem: nextFilm,
     isTransitioning,
-  } = useAutoCarousel(sortedFilms, 4000, 1000);
+  } = useAutoCarousel(popularFilms, 4000, 1000);
+
+  const sortedFilms = useMemo(() => {
+    return [...popularFilms].sort((a, b) => b.vote_average - a.vote_average);
+  }, [popularFilms]);
+  const firstPagePopularMovies = useMemo(() => {
+    const uniqueFilms = sortedFilms.filter(
+      (film, index, array) => array.findIndex((f) => f.id === film.id) === index
+    );
+    return uniqueFilms.slice(0, 20);
+  }, [sortedFilms]);
 
   if (!popularFilms || popularFilms.length === 0) {
     return <p>No movies to display</p>;
   }
 
-  const firstPagePopularMovies = sortedFilms.slice(0, 20);
   return (
     <main className="main-div">
       <div

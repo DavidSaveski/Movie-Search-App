@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useFilmStore } from "../zustand/MovieStore";
 import "../styles/SearchFilmStyle.css";
 import { getImageUrl } from "../utils/imageUrlUtils";
 import Filters from "../components/Filters";
 import type { FilmType, FilterData } from "../interface/FilmInterface";
-import { formatReleaseDate } from "../utils/formatReleaseDate";
+import { formatReleaseDate } from "../utils/formatDate";
 
 const MOVIES_PER_PAGE = 15;
 
@@ -144,13 +144,15 @@ export default function SearchFilm() {
             {moviesToDisplay.map((film, index) => (
               <div key={`${film.id}-${index}`} className="movie-card">
                 <div className="poster">
-                  <img
-                    src={getImageUrl(film.poster_path, "original")}
-                    alt={film.title}
-                    onError={(e) => {
-                      e.currentTarget.alt = `${film.title.slice(0, 21)}...`;
-                    }}
-                  />
+                  <Link to={`/details/${film.id}`}>
+                    <img
+                      src={getImageUrl(film.poster_path, "original")}
+                      alt={film.title}
+                      onError={(e) => {
+                        e.currentTarget.alt = `${film.title.slice(0, 21)}...`;
+                      }}
+                    />
+                  </Link>
                 </div>
                 <div className="film-info">
                   <h3 style={{ marginTop: "10px" }}>{film.title}</h3>

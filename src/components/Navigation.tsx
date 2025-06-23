@@ -30,12 +30,20 @@ export default function Navigation() {
   return (
     <nav className="navbar">
       <div className="navbar-container wrap">
-        <Link to={"/"}>
-          <img src="/public/Images/logo.png" alt="Logo" />
+        <Link to={"/"} style={{ textDecoration: "none" }}>
+          <div className="logo">
+            <i
+              className="fa-solid fa-star fa-lg"
+              style={{ marginRight: "5px" }}
+            ></i>
+            <p>
+              <strong>Movie Search App</strong>
+            </p>
+          </div>
         </Link>
-        <ul>
+        <ul className="navButtons">
           <Link to={"/"} className="nav-buttons">
-            Home
+            <p>Home</p>
             <span style={currentPath === "/" ? style.active : {}}></span>
           </Link>
           <Link to={"/search"} className="nav-buttons">
