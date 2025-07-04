@@ -27,6 +27,12 @@
     width: 95%;
     background-color: inherit;
   }
+  .form-input:focus,
+  :focus-visible {
+    outline: none;
+    border: none;
+    box-shadow: none;
+  }
   .form-span {
     display: inline-flex;
     width: 100%;

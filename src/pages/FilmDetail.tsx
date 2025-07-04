@@ -8,7 +8,6 @@ import { formatReleaseDate } from "../utils/formatDate";
 
 export default function MovieDetails() {
   const filmDetails = useLoaderData<FilmDetailsPlotFull>();
-  console.log(filmDetails);
 
   return (
     <section style={getBackgroundStyle(filmDetails)}>

@@ -21,6 +21,7 @@ export default function FilmList({ popularFilms }: Props) {
   const sortedFilms = useMemo(() => {
     return [...popularFilms].sort((a, b) => b.vote_average - a.vote_average);
   }, [popularFilms]);
+
   const firstPagePopularMovies = useMemo(() => {
     const uniqueFilms = sortedFilms.filter(
       (film, index, array) => array.findIndex((f) => f.id === film.id) === index
