@@ -6,8 +6,19 @@ import { getImageUrl } from "../utils/imageUrlUtils";
 import Filters from "../components/Filters";
 import type { FilmType, FilterData } from "../interface/FilmInterface";
 import { formatReleaseDate } from "../utils/formatDate";
+import { getMovieGenres } from "../utils/genresUtils";
 
 const MOVIES_PER_PAGE = 15;
+
+const style = {
+  active: {
+    borderBottom: "2px solid #fb923c",
+    display: "list-item",
+    paddingLeft: "10px",
+    width: "100%",
+    marginLeft: "-5px",
+  },
+};
 
 export default function SearchFilm() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -19,6 +30,7 @@ export default function SearchFilm() {
     sortBy: "popularity",
   });
   const [displayCount, setDisplayCount] = useState(MOVIES_PER_PAGE);
+  const [viewMode, setViewMode] = useState<"grid" | "list">("list");
 
   const queryFromUrl = searchParams.get("q") || "";
 
@@ -130,6 +142,21 @@ export default function SearchFilm() {
         )}
       </div>
 
+      {/* View Toggle */}
+      <div className="view-style">
+        <button
+          className={`viewButton ${viewMode === "grid" ? style.active : ""}`}
+          onClick={() => setViewMode("grid")}
+        >
+          Detailed View
+        </button>
+        <button
+          className={`viewButton ${viewMode === "list" ? style.active : ""}`}
+          onClick={() => setViewMode("list")}
+        >
+          List View
+        </button>
+      </div>
       <div className="search-results">
         <Filters onApplyClick={handleApplyFilters} />
 
@@ -138,9 +165,11 @@ export default function SearchFilm() {
         {!loading && !error && popularFilms.length === 0 && queryFromUrl && (
           <p>No movies found for "{queryFromUrl}"</p>
         )}
-
+        {/* Movies Container */}
         {!loading && !error && moviesToDisplay.length > 0 && (
-          <section className="movie-grid">
+          <section
+            className={viewMode === "grid" ? "moviesDetails" : "moviesList"}
+          >
             {moviesToDisplay.map((film, index) => (
               <div key={`${film.id}-${index}`} className="movie-card">
                 <div className="poster">
@@ -156,10 +185,23 @@ export default function SearchFilm() {
                 </div>
                 <div className="film-info">
                   <h3 style={{ marginTop: "10px" }}>{film.title}</h3>
-                  <p>{formatReleaseDate(film.release_date)}</p>
-                  <p>Rating: {film.vote_average}/10</p>
-                  <p>{film.popularity.toFixed(2)}</p>
-                  <p>{film.overview.slice(0, 300)}...</p>
+                  <div>
+                    {getMovieGenres(film.genre_ids).map((genre) => (
+                      <span key={genre} className="genres-style">
+                        {genre}
+                      </span>
+                    ))}
+                  </div>
+                  {viewMode === "list" ? (
+                    <>
+                      <p>{formatReleaseDate(film.release_date)}</p>
+                      <p>Rating: {film.vote_average}/10</p>
+                      <p>{film.popularity.toFixed(2)}</p>
+                      <p>{film.overview.slice(0, 300)}...</p>
+                    </>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </div>
             ))}

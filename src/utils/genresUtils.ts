@@ -21,3 +21,7 @@ export const GENRE_MAP: Record<number, string> = {
 };
 
 export type GenreId = keyof typeof GENRE_MAP;
+
+export const getMovieGenres = (genreIds: number[]) => {
+  return genreIds.map((id) => GENRE_MAP[id]).filter(Boolean);
+};

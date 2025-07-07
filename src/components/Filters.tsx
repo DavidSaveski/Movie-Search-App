@@ -2,7 +2,6 @@ import { useState } from "react";
 import { GENRE_MAP } from "../utils/genresUtils";
 import "../styles/FilterSection.css";
 
-// Define the FilterData type
 export type FilterData = {
   genres: number[];
   sortBy: string;
@@ -36,7 +35,7 @@ export default function Filters({ onApplyClick }: Props) {
       genres: selectedGenres,
       sortBy: sortBy,
     };
-    onApplyClick(filterData); // Fixed: use onApplyClick instead of onApplyFilters
+    onApplyClick(filterData);
   };
 
   return (

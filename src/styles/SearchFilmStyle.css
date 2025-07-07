@@ -7,7 +7,6 @@
 
 .search-form {
   position: relative;
-  margin-bottom: 1rem;
   .form-search-button {
     position: absolute;
     right: 0px;
@@ -82,4 +81,42 @@
   font-size: 16px;
   font-weight: bold;
   transition: background-color 0.2s ease;
+}
+.view-style {
+  width: fit-content;
+  margin: 0 auto;
+  background-color: aqua;
+  padding: 10px 50px;
+  margin-bottom: 1rem;
+  ul {
+    gap: 10px;
+    display: flex;
+    list-style-type: none;
+  }
+  .viewButton {
+    padding: 0.5rem 1rem;
+    border: 2px solid #dee2e6;
+    background-color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+}
+.film-info {
+  span {
+    margin-right: 10px;
+    background-color: lightgray;
+    padding: 2px;
+  }
+}
+.moviesDetails {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.moviesList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
