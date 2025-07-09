@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useFilmStore } from "../zustand/MovieStore";
+import { useFilmStore } from "../zustand/FilmStore";
 import FilmList from "../components/FilmList";
 import TopRatedFilmsComp from "../components/TopRatedFilms";
 import Trailers from "../components/Trailers";
@@ -10,14 +10,14 @@ export default function HomePage() {
     topRatedFilms,
     loading,
     error,
-    fetchPopularMovies,
+    fetchPopularFilms,
     fetchTopRatedFilms,
   } = useFilmStore();
 
   useEffect(() => {
-    fetchPopularMovies();
+    fetchPopularFilms();
     fetchTopRatedFilms();
-  }, [fetchPopularMovies, fetchTopRatedFilms]);
+  }, [fetchPopularFilms, fetchTopRatedFilms]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
