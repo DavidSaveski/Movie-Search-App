@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { useFilmStore } from "../zustand/FilmStore";
 import FilmList from "../components/FilmList";
 import TopRatedFilmsComp from "../components/TopRatedFilms";
-import Trailers from "../components/Trailers";
+import Trailers from "../components/LatestTrailers";
+import TVSeries from "../components/TVSeries";
 
 export default function HomePage() {
   const {
@@ -27,6 +28,7 @@ export default function HomePage() {
       <FilmList popularFilms={popularFilms} />
       <Trailers />
       <TopRatedFilmsComp topRatedFilms={topRatedFilms} />
+      <TVSeries />
     </>
   );
 }

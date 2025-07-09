@@ -15,7 +15,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i className="fa-brands fa-linkedin-in"></i>
+              <i className="fa-brands fa-linkedin-in fa-xl"></i>
             </Link>
             <Link
               to={"https://git.brainster.co/David.Saveski-FE19"}
@@ -23,7 +23,7 @@ export default function Footer() {
               rel="noopener noreferrer"
             >
               <i
-                className="fa-brands fa-gitlab"
+                className="fa-brands fa-gitlab fa-xl"
                 style={{ color: " #FFD43B" }}
               ></i>
             </Link>

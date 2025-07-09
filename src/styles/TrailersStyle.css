@@ -244,7 +244,7 @@
   position: relative;
   width: 100%;
   height: 0;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  padding-bottom: 56.25%;
 }
 
 .video-container iframe {
@@ -289,79 +289,4 @@
   font-size: 1rem;
   color: #666;
   margin: 0;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .latest-trailers-section {
-    padding: 20px 15px;
-  }
-
-  .section-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-  }
-
-  .filter-tabs {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .filter-tab {
-    flex: 1;
-    padding: 8px 12px;
-    font-size: 0.8rem;
-  }
-
-  .scroll-button {
-    display: none;
-  }
-
-  .poster-container {
-    width: 250px;
-    height: 141px;
-  }
-
-  .trailers-carousel {
-    gap: 15px;
-    padding: 10px 5px;
-  }
-
-  .modal-content {
-    margin: 10px;
-  }
-
-  .modal-header {
-    padding: 15px 15px 8px;
-  }
-
-  .modal-header h3 {
-    font-size: 1.2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .poster-container {
-    width: 200px;
-    height: 113px;
-  }
-
-  .movie-title {
-    font-size: 0.9rem;
-  }
-
-  .trailer-name {
-    font-size: 0.75rem;
-  }
-
-  .play-button {
-    width: 50px;
-    height: 50px;
-  }
-
-  .filter-tab {
-    padding: 6px 8px;
-    font-size: 0.75rem;
-  }
 }
