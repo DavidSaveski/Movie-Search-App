@@ -104,7 +104,7 @@ export const useFilmStore = create<FilmStore>()((set, get) => ({
 
       set({
         trailers,
-        selectedFilmId: movieId,
+        selectedFilmId: filmId,
         trailersLoading: false,
       });
     } catch (error) {
