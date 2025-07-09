@@ -34,7 +34,20 @@ export type FilmDetailsPlotFull = FilmType & {
   production_countries: ProductionCountry[];
   spoken_languages: SpokenLanguage[];
 };
-
+export type TrailerType = {
+  id: number;
+  key: string;
+  name: string;
+  site: string;
+  type: string;
+  official: boolean;
+  published_at: string;
+  size: number;
+};
+export interface TrailersResponseType {
+  id: number;
+  results: TrailerType[];
+}
 export type Genre = {
   id: number;
   name: string;

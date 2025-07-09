@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { useFilmStore } from "../zustand/MovieStore";
+import { useFilmStore } from "../zustand/FilmStore";
 import "../styles/SearchFilmStyle.css";
 import { getImageUrl } from "../utils/imageUrlUtils";
 import Filters from "../components/Filters";
@@ -22,7 +22,7 @@ const style = {
 
 export default function SearchFilm() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { popularFilms, topRatedFilms, searchMovies, loading, error } =
+  const { popularFilms, topRatedFilms, searchFilms, loading, error } =
     useFilmStore();
   const [currentQuery, setCurrentQuery] = useState("");
   const [activeFilters, setActiveFilters] = useState<FilterData>({
@@ -37,12 +37,12 @@ export default function SearchFilm() {
   useEffect(() => {
     if (queryFromUrl.trim() !== "") {
       setCurrentQuery(queryFromUrl);
-      searchMovies(queryFromUrl);
+      searchFilms(queryFromUrl);
     } else {
       setCurrentQuery("");
     }
     setDisplayCount(MOVIES_PER_PAGE);
-  }, [queryFromUrl, searchMovies, activeFilters]);
+  }, [queryFromUrl, searchFilms, activeFilters]);
 
   const handleNewSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
