@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
-import { useTVSeriesStore } from "../interface/TVSeriesInterface";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { getImageUrl } from "../utils/imageUrlUtils";
+import { useTVSeriesStore } from "../zustand/TVSeriesStore";
+import { Link } from "react-router-dom";
 
 export default function TVSeries() {
   const { TVSeriesData, fetchTVSeries } = useTVSeriesStore();
@@ -44,17 +45,19 @@ export default function TVSeries() {
           {TVSeriesData.map((series) => (
             <div key={series.id} className="trailer-item">
               <div className="trailer-poster-container">
-                <img
-                  src={
-                    series.backdrop_path
-                      ? getImageUrl(series.backdrop_path, "w300")
-                      : "/placeholder.svg?height=169&width=300"
-                  }
-                  alt={series.name}
-                  width={300}
-                  height={169}
-                  className="trailer-poster-image"
-                />
+                <Link to={`/tv/${series.id}`}>
+                  <img
+                    src={
+                      series.backdrop_path
+                        ? getImageUrl(series.backdrop_path, "w300")
+                        : "/placeholder.svg?height=169&width=300"
+                    }
+                    alt={series.name}
+                    width={300}
+                    height={169}
+                    className="trailer-poster-image"
+                  />
+                </Link>
                 <div className="trailer-info-overlay">
                   <h3 className="movie-title">{series.name}</h3>
                   <p className="trailer-name">Official Trailer</p>

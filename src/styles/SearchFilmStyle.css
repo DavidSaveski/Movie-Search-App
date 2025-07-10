@@ -51,38 +51,24 @@
     flex: 0 1 auto;
   }
 }
-.movie-card {
-  display: flex;
-  margin-bottom: 15px;
-  border: 2px solid darkslategrey;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  .poster {
-    margin-right: 20px;
-    border-top-left-radius: inherit;
-    border-bottom-left-radius: inherit;
-
-    img {
-      border-top-left-radius: inherit;
-      border-bottom-left-radius: inherit;
-      width: 120px;
-      height: 100%;
-    }
+.show-more-container {
+  margin-top: 1rem;
+  .show-more-button {
+    width: 100%;
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
   }
 }
-.show-more-button {
-  width: 100%;
-  padding: 12px 24px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  transition: background-color 0.2s ease;
-}
 .view-style {
+  display: flex;
+  flex-wrap: nowrap;
   width: fit-content;
   margin: 0 auto;
   background-color: aqua;
@@ -95,28 +81,74 @@
   }
   .viewButton {
     padding: 0.5rem 1rem;
-    border: 2px solid #dee2e6;
-    background-color: white;
+    border: none;
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s;
   }
-}
-.film-info {
-  span {
-    margin-right: 10px;
-    background-color: lightgray;
-    padding: 2px;
+  .viewButton:last-child {
+    margin-left: 10px;
   }
 }
-.moviesDetails {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+.film-grid-style {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   gap: 1rem;
+  .movie-card {
+    width: 220px;
+    border: 1px solid #e3e3e3;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  .poster,
+  a,
+  img {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+  }
+  img {
+    width: 100%;
+  }
+  .film-info {
+    margin: 10px;
+    .genres-style {
+      margin-right: 10px;
+      background-color: lightgray;
+      padding: 2px;
+    }
+    .genres-style:last-child {
+      margin-right: 0;
+    }
+  }
 }
 
-.moviesList {
+.film-list-style {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  .movie-card {
+    display: flex;
+    margin-bottom: 15px;
+    border: 2px solid darkslategrey;
+    border-radius: 10px;
+    .poster,
+    a,
+    img {
+      border-top-left-radius: inherit;
+      border-bottom-left-radius: inherit;
+    }
+    img {
+      width: 120px;
+      height: 100%;
+    }
+  }
+  .film-info {
+    margin-left: 20px;
+    .genres-style {
+      margin-right: 10px;
+      background-color: lightgray;
+      padding: 2px;
+    }
+  }
 }

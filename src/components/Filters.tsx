@@ -39,7 +39,7 @@ export default function Filters({ onApplyClick }: Props) {
   };
 
   return (
-    <div className="filters-container">
+    <aside className="filters-container">
       <div className="filters-header">
         <h2 className="filters-title">Filters</h2>
         <button onClick={clearFilters} className="clear-button">
@@ -88,6 +88,6 @@ export default function Filters({ onApplyClick }: Props) {
       <button className="apply-button" onClick={applyFiltersButton}>
         Apply Filters
       </button>
-    </div>
+    </aside>
   );
 }

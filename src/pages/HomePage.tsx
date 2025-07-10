@@ -9,7 +9,7 @@ export default function HomePage() {
   const {
     popularFilms,
     topRatedFilms,
-    loading,
+
     error,
     fetchPopularFilms,
     fetchTopRatedFilms,
@@ -20,7 +20,6 @@ export default function HomePage() {
     fetchTopRatedFilms();
   }, [fetchPopularFilms, fetchTopRatedFilms]);
 
-  if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (

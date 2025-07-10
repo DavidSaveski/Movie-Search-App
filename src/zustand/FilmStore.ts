@@ -6,8 +6,7 @@ import type {
   TrailersResponseType,
 } from "../interface/FilmInterface";
 import { getBaseURL } from "../routes";
-
-const API_KEY = import.meta.env.VITE_APIKEY;
+import { API_KEY } from "../api/API_KEY";
 
 type FilmStore = {
   // State

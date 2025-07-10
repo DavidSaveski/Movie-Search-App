@@ -4,11 +4,12 @@ import HomePage from "./pages/HomePage";
 import ErrorPage from "./pages/ErrorPage";
 import SearchFilm from "./pages/SearchFilm";
 import MovieDetails from "./pages/FilmDetail";
+import SeriesDetails from "./pages/SeriesDetails";
+import { API_KEY } from "./api/API_KEY";
 
 export function getBaseURL() {
   return `https://api.themoviedb.org/3`;
 }
-const API_KEY = import.meta.env.VITE_APIKEY;
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,19 @@ export const router = createBrowserRouter([
           return response.json();
         },
         element: <MovieDetails />,
+      },
+      {
+        path: "/tv/:id",
+        loader: async ({ params: { id } }) => {
+          const response = await fetch(
+            `${getBaseURL()}/tv/${id}?api_key=${API_KEY}`
+          );
+          if (!response.ok) {
+            throw new Error("Failed to fetch series details");
+          }
+          return response.json();
+        },
+        element: <SeriesDetails />,
       },
       {
         path: "/search",

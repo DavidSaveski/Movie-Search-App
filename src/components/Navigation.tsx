@@ -19,11 +19,7 @@ export default function Navigation() {
   };
   const style = {
     active: {
-      borderBottom: "2px solid #fb923c",
-      display: "list-item",
-      paddingLeft: "10px",
-      width: "100%",
-      marginLeft: "-5px",
+      color: "blue",
     },
   };
 
@@ -41,17 +37,25 @@ export default function Navigation() {
             </p>
           </div>
         </Link>
-        <ul className="navButtons">
-          <Link to={"/"} className="nav-buttons">
+        <div className="navButtons">
+          <Link
+            to={"/"}
+            className="nav-buttons"
+            style={currentPath === "/" ? style.active : {}}
+          >
             <p>Home</p>
-            <span style={currentPath === "/" ? style.active : {}}></span>
           </Link>
-          <Link to={"/search"} className="nav-buttons">
+          <Link
+            to={"/search"}
+            className="nav-buttons"
+            style={currentPath === "/search" ? style.active : {}}
+          >
             Search
-            <span style={currentPath === "/search" ? style.active : {}}></span>
           </Link>
-          <li>About</li>
-        </ul>
+          <Link to={"/"} className="nav-buttons">
+            About
+          </Link>
+        </div>
         <div className="search-container">
           <div className="search-input-wrapper">
             <input

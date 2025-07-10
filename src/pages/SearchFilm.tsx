@@ -8,15 +8,12 @@ import type { FilmType, FilterData } from "../interface/FilmInterface";
 import { formatReleaseDate } from "../utils/formatDate";
 import { getMovieGenres } from "../utils/genresUtils";
 
-const MOVIES_PER_PAGE = 15;
+const MOVIES_PER_PAGE = 16;
 
 const style = {
   active: {
-    borderBottom: "2px solid #fb923c",
-    display: "list-item",
-    paddingLeft: "10px",
-    width: "100%",
-    marginLeft: "-5px",
+    color: "blue",
+    boxShadow: "0 2px 8px rgba(0,0,0,.3)",
   },
 };
 
@@ -67,17 +64,31 @@ export default function SearchFilm() {
   const handleShowMore = () => {
     setDisplayCount((prev) => prev + MOVIES_PER_PAGE);
   };
-
+  const removeDuplicates = (movies: FilmType[]): FilmType[] => {
+    const seen = new Set<number>();
+    return movies.filter((movie) => {
+      if (seen.has(movie.id)) {
+        return false;
+      }
+      seen.add(movie.id);
+      return true;
+    });
+  };
   const filteredAndSortedMovies = useMemo(() => {
     let source: FilmType[] = [];
 
+    //Removing duplicates
+    const combinedMovies = [...popularFilms, ...topRatedFilms];
+    const uniqueMovies = removeDuplicates(combinedMovies);
+
     if (queryFromUrl && queryFromUrl.trim().length > 0) {
-      source = [...popularFilms, ...topRatedFilms].filter((film) =>
+      source = uniqueMovies.filter((film) =>
         film.title.toLowerCase().includes(queryFromUrl.toLowerCase())
       );
     } else {
-      source = [...popularFilms, ...topRatedFilms];
+      source = uniqueMovies;
     }
+
     // Filter by Genres
     let filtered = [...source];
     if (activeFilters.genres.length > 0) {
@@ -117,7 +128,7 @@ export default function SearchFilm() {
   const hasMoreMovies = displayCount < filteredAndSortedMovies.length;
 
   return (
-    <div className="search-page wrap">
+    <section className="search-page wrap">
       <div className="search-header">
         <h1>Search Movies</h1>
         <form onSubmit={handleNewSearch} className="search-form">
@@ -145,13 +156,15 @@ export default function SearchFilm() {
       {/* View Toggle */}
       <div className="view-style">
         <button
-          className={`viewButton ${viewMode === "grid" ? style.active : ""}`}
+          className={"viewButton"}
+          style={viewMode === "grid" ? style.active : {}}
           onClick={() => setViewMode("grid")}
         >
           Detailed View
         </button>
         <button
-          className={`viewButton ${viewMode === "list" ? style.active : ""}`}
+          className={"viewButton"}
+          style={viewMode === "list" ? style.active : {}}
           onClick={() => setViewMode("list")}
         >
           List View
@@ -167,44 +180,54 @@ export default function SearchFilm() {
         )}
         {/* Movies Container */}
         {!loading && !error && moviesToDisplay.length > 0 && (
-          <section
-            className={viewMode === "grid" ? "moviesDetails" : "moviesList"}
-          >
-            {moviesToDisplay.map((film, index) => (
-              <div key={`${film.id}-${index}`} className="movie-card">
-                <div className="poster">
-                  <Link to={`/details/${film.id}`}>
-                    <img
-                      src={getImageUrl(film.poster_path, "original")}
-                      alt={film.title}
-                      onError={(e) => {
-                        e.currentTarget.alt = `${film.title.slice(0, 21)}...`;
-                      }}
-                    />
-                  </Link>
-                </div>
-                <div className="film-info">
-                  <h3 style={{ marginTop: "10px" }}>{film.title}</h3>
-                  <div>
-                    {getMovieGenres(film.genre_ids).map((genre) => (
-                      <span key={genre} className="genres-style">
-                        {genre}
-                      </span>
-                    ))}
+          <main>
+            <div
+              className={
+                viewMode === "grid" ? "film-grid-style" : "film-list-style"
+              }
+            >
+              {moviesToDisplay.map((film, index) => (
+                <div key={`${film.id}-${index}`} className="movie-card">
+                  <div className="poster">
+                    <Link to={`/details/${film.id}`}>
+                      <img
+                        src={getImageUrl(film.poster_path, "original")}
+                        alt={film.title}
+                        onError={(e) => {
+                          e.currentTarget.alt = `${film.title.slice(0, 21)}...`;
+                        }}
+                      />
+                    </Link>
                   </div>
-                  {viewMode === "list" ? (
-                    <>
-                      <p>{formatReleaseDate(film.release_date)}</p>
-                      <p>Rating: {film.vote_average}/10</p>
-                      <p>{film.popularity.toFixed(2)}</p>
-                      <p>{film.overview.slice(0, 300)}...</p>
-                    </>
-                  ) : (
-                    <></>
-                  )}
+                  <div className="film-info">
+                    <h3>{film.title}</h3>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      {getMovieGenres(film.genre_ids).map((genre) => (
+                        <p key={genre} className="genres-style">
+                          {genre}
+                        </p>
+                      ))}
+                    </div>
+
+                    {viewMode === "list" ? (
+                      <>
+                        <p>{formatReleaseDate(film.release_date)}</p>
+                        <p>Rating: {film.vote_average}/10</p>
+                        <p>{film.popularity.toFixed(2)}</p>
+                        <p>{film.overview.slice(0, 300)}...</p>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
             {!loading && !error && hasMoreMovies && (
               <div className="show-more-container">
                 <button
@@ -222,7 +245,7 @@ export default function SearchFilm() {
                 </button>
               </div>
             )}
-          </section>
+          </main>
         )}
 
         {!loading &&
@@ -232,6 +255,6 @@ export default function SearchFilm() {
             <p>No movies match the selected filters.</p>
           )}
       </div>
-    </div>
+    </section>
   );
 }
