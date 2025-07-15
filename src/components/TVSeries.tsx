@@ -2,11 +2,12 @@ import { useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { getImageUrl } from "../utils/imageUrlUtils";
 import { useTVSeriesStore } from "../zustand/TVSeriesStore";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function TVSeries() {
   const { TVSeriesData, fetchTVSeries } = useTVSeriesStore();
   const carouselRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchTVSeries();
@@ -27,6 +28,19 @@ export default function TVSeries() {
       });
     }
   };
+  const handleScrollClick = (
+    direction: "left" | "right",
+    event: React.MouseEvent
+  ) => {
+    event.preventDefault();
+    event.stopPropagation();
+    scrollCarousel(direction);
+  };
+  const handleSeriesClick = (seriesId: number, event: React.MouseEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    navigate(`/tv/${seriesId}`);
+  };
 
   return (
     <section className="latest-trailers-section wrap">
@@ -36,7 +50,7 @@ export default function TVSeries() {
       <div className="trailers-carousel-container">
         <button
           className="scroll-button scroll-left"
-          onClick={() => scrollCarousel("left")}
+          onClick={(e) => handleScrollClick("left", e)}
           aria-label="Scroll left"
         >
           <ChevronLeft size={24} />
@@ -44,20 +58,17 @@ export default function TVSeries() {
         <div className="trailers-carousel" ref={carouselRef}>
           {TVSeriesData.map((series) => (
             <div key={series.id} className="trailer-item">
-              <div className="trailer-poster-container">
-                <Link to={`/tv/${series.id}`}>
+              <div
+                className="trailer-poster-container"
+                onClick={(e) => handleSeriesClick(series.id, e)}
+              >
+                <div>
                   <img
-                    src={
-                      series.backdrop_path
-                        ? getImageUrl(series.backdrop_path, "w300")
-                        : "/placeholder.svg?height=169&width=300"
-                    }
+                    src={getImageUrl(series.backdrop_path, "w300")}
                     alt={series.name}
-                    width={300}
-                    height={169}
                     className="trailer-poster-image"
                   />
-                </Link>
+                </div>
                 <div className="trailer-info-overlay">
                   <h3 className="movie-title">{series.name}</h3>
                   <p className="trailer-name">Official Trailer</p>
@@ -68,7 +79,7 @@ export default function TVSeries() {
         </div>
         <button
           className="scroll-button scroll-right"
-          onClick={() => scrollCarousel("right")}
+          onClick={(e) => handleScrollClick("right", e)}
           aria-label="Scroll right"
         >
           <ChevronRight size={24} />

@@ -82,10 +82,15 @@ export const useFilmStore = create<FilmStore>()((set, get) => ({
     }
   },
 
-  // Getting film trailers
+  // fetching film trailers
   fetchFilmTrailers: async (filmId: number) => {
     try {
-      set({ trailersLoading: true, error: null });
+      set({
+        trailersLoading: true,
+        error: null,
+        trailers: [],
+        selectedFilmId: null,
+      });
 
       const response = await fetch(
         `${getBaseURL()}/movie/${filmId}/videos?api_key=${API_KEY}&language=en-US`
@@ -96,7 +101,6 @@ export const useFilmStore = create<FilmStore>()((set, get) => ({
       }
 
       const data: TrailersResponseType = await response.json();
-
       const trailers = data.results.filter(
         (video) => video.type === "Trailer" && video.site === "YouTube"
       );
@@ -112,6 +116,7 @@ export const useFilmStore = create<FilmStore>()((set, get) => ({
           error instanceof Error ? error.message : "Failed to fetch trailers",
         trailersLoading: false,
         trailers: [],
+        selectedFilmId: null,
       });
     }
   },

@@ -1,8 +1,8 @@
 import { useLoaderData } from "react-router-dom";
-import type { TVSeriesSearchResult } from "../interface/TVSeriesInterface";
+import type { TVSeriesDetails } from "../interface/TVSeriesInterface";
 
 export default function SeriesDetails() {
-  const tvSeriesDetails = useLoaderData<TVSeriesSearchResult>();
+  const tvSeriesDetails = useLoaderData<TVSeriesDetails>();
 
   return (
     <section className="wrap">

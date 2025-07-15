@@ -1,16 +1,16 @@
 import { create } from "zustand";
 import type {
   TVSeriesResponse,
-  TVSeriesSearchResult,
+  TVSeriesDetails,
   TVSeriesType,
 } from "../interface/TVSeriesInterface";
 import { getBaseURL } from "../routes";
 import { API_KEY } from "../api/API_KEY";
 
 type TVSeriesStore = {
-  TVSeriesData: TVSeriesSearchResult[];
-  searchResults: TVSeriesSearchResult[];
-  setTVSeries: (series: TVSeriesSearchResult[]) => void;
+  TVSeriesData: TVSeriesType[];
+  searchResults: TVSeriesDetails[];
+  setTVSeries: (series: TVSeriesType[]) => void;
   fetchTVSeries: () => Promise<void>;
   fetchTVSeriesDetails: (id: number) => Promise<TVSeriesType | null>;
   searchTVSeries: (query: string) => Promise<void>;
@@ -24,10 +24,10 @@ export const useTVSeriesStore = create<TVSeriesStore>()((set) => ({
   loading: false,
   error: null,
   currentPage: 1,
-  totalPages: 1,
+  totalPages: 15,
   totalResults: 0,
 
-  setTVSeries: (series: TVSeriesSearchResult[]) => {
+  setTVSeries: (series: TVSeriesType[]) => {
     set({ TVSeriesData: series });
   },
 

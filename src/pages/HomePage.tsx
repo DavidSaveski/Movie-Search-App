@@ -9,7 +9,6 @@ export default function HomePage() {
   const {
     popularFilms,
     topRatedFilms,
-
     error,
     fetchPopularFilms,
     fetchTopRatedFilms,
@@ -25,7 +24,7 @@ export default function HomePage() {
   return (
     <>
       <FilmList popularFilms={popularFilms} />
-      <Trailers />
+      <Trailers popularFilms={popularFilms} />
       <TopRatedFilmsComp topRatedFilms={topRatedFilms} />
       <TVSeries />
     </>

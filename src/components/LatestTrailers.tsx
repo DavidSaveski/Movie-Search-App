@@ -1,5 +1,3 @@
-"use client";
-
 import "../styles/TrailersStyle.css";
 import { useEffect, useState, useRef, useMemo } from "react";
 import { ChevronLeft, ChevronRight, Play, X } from "lucide-react";
@@ -8,20 +6,16 @@ import { getImageUrl } from "../utils/imageUrlUtils";
 import type { FilmType, TrailerType } from "../interface/FilmInterface";
 import { formatReleaseDate } from "../utils/formatDate";
 
-// Extended trailer type for modal display
+type Props = {
+  popularFilms: FilmType[];
+};
+
 interface TrailerWithMovie extends TrailerType {
   filmTitle: string;
 }
 
-export default function LatestTrailers() {
-  const {
-    popularFilms,
-    trailers,
-    loading,
-    error,
-    fetchPopularFilms,
-    fetchFilmTrailers,
-  } = useFilmStore();
+export default function LatestTrailers({ popularFilms }: Props) {
+  const { trailers, loading, error, fetchFilmTrailers } = useFilmStore();
 
   const [selectedTrailer, setSelectedTrailer] =
     useState<TrailerWithMovie | null>(null);
@@ -44,11 +38,7 @@ export default function LatestTrailers() {
     return uniqueFilms.slice(0, 15);
   }, [popularFilms]);
 
-  useEffect(() => {
-    if (popularFilms.length === 0) {
-      fetchPopularFilms();
-    }
-  }, [fetchPopularFilms, popularFilms.length]);
+  useEffect(() => {}, [popularFilms.length]);
 
   const updateScrollButtons = () => {
     if (carouselRef.current) {
@@ -70,24 +60,42 @@ export default function LatestTrailers() {
 
   useEffect(() => {
     if (pendingFilm && trailers.length > 0) {
-      const trailerWithMovie: TrailerWithMovie = {
-        ...trailers[0],
-        filmTitle: pendingFilm.title,
-      };
-      setSelectedTrailer(trailerWithMovie);
-      setShowModal(true);
+      const officialTrailer =
+        trailers.find(
+          (trailer) => trailer.type === "Trailer" && trailer.site === "YouTube"
+        ) ||
+        trailers.find((trailer) => trailer.site === "YouTube") ||
+        trailers[0];
+
+      if (officialTrailer) {
+        const trailerWithMovie: TrailerWithMovie = {
+          ...officialTrailer,
+          filmTitle: pendingFilm.title,
+        };
+        setSelectedTrailer(trailerWithMovie);
+        setShowModal(true);
+      }
       setPendingFilm(null);
     }
   }, [trailers, pendingFilm]);
 
   const handleTrailerClick = async (film: FilmType) => {
+    setSelectedTrailer(null);
+    setShowModal(false);
     setPendingFilm(film);
-    await fetchFilmTrailers(film.id);
+
+    try {
+      await fetchFilmTrailers(film.id);
+    } catch (error) {
+      console.error("Failed to fetch trailers:", error);
+      setPendingFilm(null);
+    }
   };
 
   const closeModal = () => {
     setShowModal(false);
     setSelectedTrailer(null);
+    setPendingFilm(null);
   };
 
   const scrollCarousel = (direction: "left" | "right") => {
@@ -203,7 +211,7 @@ export default function LatestTrailers() {
       {/* Modal */}
       {showModal && selectedTrailer && (
         <div className="trailer-modal" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          <div className="modal-content">
             <button className="close-button" onClick={closeModal}>
               <X size={20} />
             </button>

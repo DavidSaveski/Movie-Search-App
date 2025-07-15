@@ -5,40 +5,29 @@ export type TVSeriesType = {
   original_name: string;
   original_language: string;
   origin_country: string[];
-  first_air_date: string | null;
-  last_air_date: string | null;
   status: string;
   type: string;
   poster_path: string | null;
   backdrop_path: string | null;
-  // Episodes and Seasons
-  number_of_episodes: number;
-  number_of_seasons: number;
-  episode_run_time: number[];
-  seasons: Season[];
-  // Next/Last episodes
-  next_episode_to_air: Episode | null;
-  last_episode_to_air: Episode | null;
 };
-export type TVSeriesSearchResult = {
-  id: number;
-  name: string;
-  original_name: string;
-  overview: string;
-  first_air_date: string | null;
-  origin_country: string[];
-  original_language: string;
-  poster_path: string | null;
-  backdrop_path: string | null;
+export type TVSeriesDetails = TVSeriesType & {
   vote_average: number;
   vote_count: number;
   popularity: number;
   genre_ids: number[];
+  number_of_episodes: number;
+  number_of_seasons: number;
+  episode_run_time: number[];
+  seasons: Season[];
+  next_episode_to_air: Episode | null;
+  last_episode_to_air: Episode | null;
+  first_air_date: string | null;
+  last_air_date: string | null;
 };
 
 export type TVSeriesResponse = {
   page: number;
-  results: TVSeriesSearchResult[];
+  results: TVSeriesDetails[];
   total_pages: number;
   total_results: number;
 };
